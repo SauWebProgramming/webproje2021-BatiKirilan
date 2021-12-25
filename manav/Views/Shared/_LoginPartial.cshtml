@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using manav.Models
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index" title="Manage">@localizer["Tekrar Hoşgeldin"] <span class="text-primary">@User.Identity.Name!</span></a>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="" asp-controller="User" asp-action="Logout">
+                <button type="submit" class="nav-link btn btn-link text-dark">@localizer["Çıkış Yap"]</button>
+</form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SignUp">@localizer["Kayıt Ol"]</a>
+</li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SignIn">@localizer["Giriş Yap"]</a>
+</li>
+    }
+</ul>

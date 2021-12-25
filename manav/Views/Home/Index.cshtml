@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Urun>
+@{
+    ViewData["Title"] = "Home Page";
+}
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <h1>@localizer["Manavıma Hoşgeldiniz"]</h1>
+    </div>
+    <div class="row">
+        <div class="d-flex justify-content-center col-9">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-4">
+                        <div class="row m-3">
+                            <img class="col-12 p-0" src="@item.UrunResim" style="width:100px;height:200px" />
+                            <span class="col-12">@item.UrunAd - @item.UrunAciklama</span>
+                            <span class="col-12"> Fiyatı : @item.UrunFiyat TL</span>
+                            <a class="col-12" asp-action="SepeteEkle" asp-route-id="@item.UrunID">@localizer["Sepete Ekle"]</a>
+                        </div>
+
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="col-3">
+            @if (ViewBag.cart != null)
+            {
+                <ul>
+                    @foreach (var item in @ViewBag.cart)
+                    {
+                        <li>@item.Ad - @item.Fiyat TL</li>
+                    }
+                </ul>
+                <div>Toplam Fiyat : @ViewBag.toplam TL</div>
+                <a class="btn btn-danger" asp-action="Sepetibosalt">@localizer["Sepeti Boşalt"]</a>
+                <a class="btn btn-primary" asp-action="Sepetionayla">@localizer["Sepeti Onayla"]</a>
+            }
+
+
+        </div>
+    </div>
+</div>
+

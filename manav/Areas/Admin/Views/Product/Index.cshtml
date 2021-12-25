@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Urun>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<a asp-action="Ekle" class="mx-5 mt-5 btn btn-primary">Yeni Ürün</a>
+<div class="my-5">
+    <table class="table table-bordered">
+        <tr>
+            <th>Ürün Adı</th>
+            <th>Ürün Fiyatı</th>
+            <th>Ürün Açıklaması</th>
+            <th>Ürün Resmi</th>
+            <th>Ürün Kategorisi</th>
+            <th>Ürün Sil</th>
+            <th>Ürün Düzenle</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><a asp-action="Duzenle" asp-route-id="@item.UrunID">@item.UrunAd</a></td>
+                <td>@item.UrunFiyat</td>
+                <td>@item.UrunAciklama</td>
+                <td><img width="50px" src="@item.UrunResim" /></td>
+                <td>@item.Kategori.KategoriAd</td>
+                <td><a asp-action="Sil" asp-route-id="@item.UrunID" class="btn btn-danger">Sil</a></td>
+                <td><a asp-action="Duzenle" asp-route-id="@item.UrunID" class="btn btn-success">Düzenle</a></td>
+            </tr>
+        }
+    </table>
+</div>
